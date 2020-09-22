@@ -24,8 +24,6 @@ public class Grafo {
 	}
 	
 	public void borrarArista(int i, int j) {
-		// codigo defensivo, reaccionamos frente a inputs
-		// no deseados
 		verificarVertice(i);
 		verificarVertice(j);
 		verificarDistintos(i, j);
