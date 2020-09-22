@@ -1,5 +1,7 @@
 package semana2;
 
+import java.util.Set;
+
 public class Grafo {
 
 	private boolean[][] A; // matriz de adyacencia
@@ -48,6 +50,11 @@ public class Grafo {
 		verificarVertice(i);
 		verificarVertice(j);
 		return A[i][j];
+	}
+	
+	public Set<Integer> vecinos(int i){
+		throw new RuntimeException("Aun no implementado");
+		
 	}
 
 }
