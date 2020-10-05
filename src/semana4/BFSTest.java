@@ -29,7 +29,9 @@ public class BFSTest {
 	public void testConexo() {
 		Set<Integer> alcanzables = BFS.alcanzables(grafo,0);
 		int[] esperados = {0,1,2,3};
-		assertFalse(BFS.esConexo(grafo));
+		
+		Assert.iguales(esperados, alcanzables);
+		
 	}
 
 }

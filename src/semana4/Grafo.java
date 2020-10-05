@@ -1,5 +1,6 @@
 package semana4;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Grafo {
@@ -53,7 +54,12 @@ public class Grafo {
 	}
 	
 	public Set<Integer> vecinos(int i){
-		throw new RuntimeException("Aun no implementado");
+		Set<Integer> vecinos = new HashSet<Integer>();
+		for(int j=0; j<vertices();j++) {
+			if(existeArista(i,j))
+				vecinos.add(j);
+		}
+		return vecinos;
 		
 	}
 

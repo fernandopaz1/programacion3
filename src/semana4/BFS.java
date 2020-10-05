@@ -26,6 +26,7 @@ public class BFS {
 			int i = lista.get(0);
 			marcados[i]=true;
 			agregarVecinosPendientes(grafo, i);
+			ret.add(i);
 			lista.remove(0);
 		}
 		return ret;
