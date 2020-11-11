@@ -19,7 +19,7 @@ public class Interface {
 	private JFrame frame;
 	private JMapViewer mapa;  //creo esta variabe para usar JMapViewer
 	private JPanel panelMapa;
-//	private JPanel panelControles;
+//cd	private JPanel panelControles;
 	/**
 	 * Launch the application.
 	 */
