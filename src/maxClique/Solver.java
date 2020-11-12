@@ -47,17 +47,25 @@ public class Solver {
 	}
 
 	private void generarDesde(int vertice) {  //O(n^2*2^n)
+		
+		
 		// caso base {O(n^2)}
 		if (vertice == _grafo.vertices()) {
 			// En el caso base revisamos si es una clique
 			// Cuando estoy en el caso base es porque
 			// ya considero que es un subconjunto
 
-			if (Auxiliares.esClique(_grafo, _actual) && _actual.size() > _mayor.size()) {
+			if (_actual.size() > _mayor.size()) {
 				_mayor = clonar(_actual);
 			}
-		} else {
-
+			
+			
+		}else if(Auxiliares.esClique(_grafo, _actual)) {
+		
+			//caso base2 actuak no es una clique
+			//entonces cortamos la recursion y
+			//hacemos backtracking
+			
 			// Agrego el vertice 0
 			_actual.add(vertice);
 			// genero desde el 1 teniendo el 0 _actual

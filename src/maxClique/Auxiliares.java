@@ -11,7 +11,7 @@ public class Auxiliares {
 		static boolean esClique(Grafo grafo, Set<Integer> conjunto) {
 			for(Integer v1 : conjunto) {
 				for(Integer v2 : conjunto) { 
-					if(!grafo.existeArista(v1, v2)  && v1!=v2) {
+					if(v1!=v2 && !grafo.existeArista(v1, v2)) {
 						return false;
 					}
 				}

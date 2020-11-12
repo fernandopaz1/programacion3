@@ -12,7 +12,7 @@ public class StressTest {
 	
 	public static void main(String[] args) {
 		
-		for(int n= 2; n<50; ++n) {
+		for(int n= 2; n<1000; ++n) {
 			long inicio = System.currentTimeMillis();
 			
 			Solver solver = new Solver(aleatorio(n));
@@ -34,7 +34,7 @@ public class StressTest {
 		
 		for (int i=0; i<n; ++i) {
 			for (int j=i+1; i<n; ++i) {
-				if(random.nextDouble()< 0.3 && i!=j) {
+				if(random.nextDouble()< 0.3) {
 					g.agregarArista(i, j);
 				}
 				
