@@ -18,14 +18,19 @@ public class Solver {
 	// El grafo donde busco la cliqueMax
 	private Grafo _grafo;
 
-	// auxiliar para la recursion
+	// auxiliar donde guardo la clique actual
 	private Set<Integer> _actual;
+
+	// Aca guardo la clique mayor que encuentro
+	private Set<Integer> _mayor;
 
 	public Solver(Grafo grafo) {
 		_grafo = grafo;
 	}
 
 	public Set<Integer> resolver() {
+
+		_mayor = new HashSet<Integer>();
 
 		_actual = new HashSet<Integer>();
 		// En este metodo esta la fuerza bruta
@@ -38,13 +43,19 @@ public class Solver {
 
 		generarDesde(0);
 
-		return null;
+		return _mayor;
 	}
 
-	private void generarDesde(int vertice) {
-		// caso base
+	private void generarDesde(int vertice) {  //O(n^2*2^n)
+		// caso base {O(n^2)}
 		if (vertice == _grafo.vertices()) {
+			// En el caso base revisamos si es una clique
+			// Cuando estoy en el caso base es porque
+			// ya considero que es un subconjunto
 
+			if (Auxiliares.esClique(_grafo, _actual) && _actual.size() > _mayor.size()) {
+				_mayor = clonar(_actual);
+			}
 		} else {
 
 			// Agrego el vertice 0
@@ -56,9 +67,18 @@ public class Solver {
 			_actual.remove(vertice);
 			// Genero desde 1 con nada en _actual
 			generarDesde(vertice + 1);
-			
-			//este metodo me permite mediante recursion generar todos
-			//las posibles combinaciones de vertice
+
+			// este metodo me permite mediante recursion generar todos
+			// las posibles combinaciones de vertice
 		}
 	}
+
+	private Set<Integer> clonar(Set<Integer> original) {
+		Set<Integer> nuevo = new HashSet<Integer>();
+		for (Integer i : original) {
+			nuevo.add(i);
+		}
+		return nuevo;
+	}
+
 }
