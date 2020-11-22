@@ -1,6 +1,6 @@
 package mochila;
 
-public class Objeto implements Comparable<Objeto> {
+public class Objeto{
 	
 	private String _nombre;
 	private int _peso;
@@ -29,13 +29,7 @@ public class Objeto implements Comparable<Objeto> {
 	}
 
 
-	@Override
-	public int compareTo(Objeto otro) {
-		//devuelve negativo si es menor que el otro
-		//positivo si es mayor
-		//0 si son iguales
-		return this.getBeneficio()-otro.getBeneficio();
-	}
+	
 	
 	
 }

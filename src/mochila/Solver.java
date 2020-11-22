@@ -2,13 +2,16 @@ package mochila;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Solver {
 	
 	private Instancia _instancia;
+	private Comparator<Objeto> _comparador;
 	
-	public Solver(Instancia instancia) {
+	public Solver(Instancia instancia, Comparator<Objeto> comparador) {
 		_instancia = instancia;
+		_comparador = comparador;
 	}
 	
 	public Solucion resolver() {
@@ -32,10 +35,14 @@ public class Solver {
 		ArrayList<Objeto> ret = _instancia.getObjeto();
 		
 		//Para poder usar esto objeto debe ser comparable
-		Collections.sort(ret);
-		//esta ordenado de menor a mayor
-		//aplico reverse para que sea de mayor beneficio a menor
-		Collections.reverse(ret);
+		
+		//esto es injeccion de codigo
+		//la Interfaz comparator nos dice como se comporta la funcion 
+		//de comparacion sobreescribiendo su metodo puedo decirle a Collection.sort
+		//como se ordenan los objetos de cierta clase sin que implementen compareTo
+		//De esta forma estoy inyectando el codigo que escribi en la clase
+		//ComparadorPorBeneficio en la funcion sort
+		Collections.sort(ret, _comparador);
 		return ret;
 	}
 
