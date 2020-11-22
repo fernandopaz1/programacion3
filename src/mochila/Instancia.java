@@ -26,6 +26,14 @@ public class Instancia {
 	public ArrayList<Objeto> getObjeto(){
 		return (ArrayList<Objeto>) _objetos.clone();
 	}
+
+	public int getTamanio() {
+		return _objetos.size();
+	}
+
+	public Objeto getObjeto(int i) {
+		return _objetos.get(i);
+	}
 	
 	
 }

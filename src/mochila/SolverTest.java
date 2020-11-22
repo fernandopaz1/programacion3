@@ -25,7 +25,7 @@ public class SolverTest {
 
 	@Test
 	public void resolverPorBeneficioTest() {
-		Solver solver = new Solver(ejemplo(), new ComparadorPorBeneficio());
+		SolverGoloso solver = new SolverGoloso(ejemplo(), new ComparadorPorBeneficio());
 		Solucion solucion = solver.resolver();
 		assertEquals(3, solucion.getCardinal());
 		assertEquals(9, solucion.getPeso());
@@ -34,7 +34,7 @@ public class SolverTest {
 	
 	@Test
 	public void resolverPorPesoTest() {
-		Solver solver = new Solver(ejemplo(), new ComparadorPorPeso());
+		SolverGoloso solver = new SolverGoloso(ejemplo(), new ComparadorPorPeso());
 		Solucion solucion = solver.resolver();
 		assertEquals(3, solucion.getCardinal());
 		assertEquals(8, solucion.getPeso());
@@ -43,7 +43,7 @@ public class SolverTest {
 	
 	@Test
 	public void resolverPorCocienteTest() {
-		Solver solver = new Solver(ejemplo(), new ComparadorPorCociente());
+		SolverGoloso solver = new SolverGoloso(ejemplo(), new ComparadorPorCociente());
 		Solucion solucion = solver.resolver();
 		assertEquals(3, solucion.getCardinal());
 		assertEquals(9, solucion.getPeso());

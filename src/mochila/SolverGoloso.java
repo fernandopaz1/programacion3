@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Solver {
+public class SolverGoloso {
 	
 	private Instancia _instancia;
 	private Comparator<Objeto> _comparador;
 	
-	public Solver(Instancia instancia, Comparator<Objeto> comparador) {
+	public SolverGoloso(Instancia instancia, Comparator<Objeto> comparador) {
 		_instancia = instancia;
 		_comparador = comparador;
 	}
