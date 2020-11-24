@@ -21,10 +21,16 @@ public class Poblacion {
 	private int _recombinadosPorIteracion = 20;
 
 	// es la cantidad de eliminados en cada iteracion
-	private int _eliminadoPorIteracion=60;
-	
+	private int _eliminadoPorIteracion = 60;
+
 	// Generador de numeros aleatorios
 	private Generador _random;
+
+	// Me dice por que iteracion voy
+	private int _iteracion = 0;
+	
+	// Me dice por que iteracion voy
+		private int _maxIteraciones = 1000;
 
 	public Poblacion(Instancia instancia, Generador generador) {
 		_instancia = instancia;
@@ -34,14 +40,24 @@ public class Poblacion {
 
 	public Individuo simular() {
 		generarIndividuos();
-
+		_iteracion = 0;
 		while (!satisfactoria()) {
 			mutarAlgunos();
 			recombinarAlgunos();
 			eliminarPeores();
 			agregarNuevos();
+			estadisticas();
+			_iteracion++;
 		}
 		return mejorIndividuo();
+	}
+
+	private void estadisticas() {
+		System.out.print("It: " + _iteracion);
+		System.out.print(" - Mejor: " + mejorIndividuo().fitness());
+		System.out.print(" - Prom: " + fitnessPromedio());
+		System.out.print(" - Peor: " + peorIndividuo().fitness());
+		System.out.println();
 	}
 
 	private void generarIndividuos() {
@@ -52,8 +68,7 @@ public class Poblacion {
 	}
 
 	private boolean satisfactoria() {
-		// TODO Auto-generated method stub
-		return false;
+		return _iteracion>_maxIteraciones;
 	}
 
 	private void mutarAlgunos() {
@@ -64,7 +79,7 @@ public class Poblacion {
 	}
 
 	private void recombinarAlgunos() {
-		for (int i = 0; i < _recombinadosPorIteracion; ++i) { 
+		for (int i = 0; i < _recombinadosPorIteracion; ++i) {
 			Individuo padre1 = individuoAleatorio();
 			Individuo padre2 = individuoAleatorio();
 			for (Individuo hijo : padre1.recombinar(padre2)) {
@@ -80,21 +95,33 @@ public class Poblacion {
 	}
 
 	private void eliminarPeores() {
-		Collections.sort(_individuos); //ordena de menor a mayor
-		Collections.reverse(_individuos); //Invierto porque es mas facil eliminar los ultimos
-		for(int i=0 ;i<_eliminadoPorIteracion; ++i) {
-			_individuos.remove(_individuos.size()-1);
+		Collections.sort(_individuos); // ordena de menor a mayor
+		Collections.reverse(_individuos); // Invierto porque es mas facil eliminar los ultimos
+		for (int i = 0; i < _eliminadoPorIteracion; ++i) {
+			_individuos.remove(_individuos.size() - 1);
 		}
 	}
 
 	private void agregarNuevos() {
-		//Si mi poblacion decrece agrego aleatorios
-		while(_individuos.size()<100) {
+		// Si mi poblacion decrece agrego aleatorios
+		while (_individuos.size() < 100) {
 			_individuos.add(Individuo.aleatorio(_instancia));
 		}
 	}
 
-	public Individuo mejorIndividuo() {		
+	public Individuo mejorIndividuo() {
 		return Collections.max(_individuos);
+	}
+
+	private Individuo peorIndividuo() {
+		return Collections.min(_individuos);
+	}
+
+	private double fitnessPromedio() {
+		double suma = 0;
+		for (Individuo individuo : _individuos) {
+			suma += individuo.fitness();
+		}
+		return suma / _individuos.size();
 	}
 }
