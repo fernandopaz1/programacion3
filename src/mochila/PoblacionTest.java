@@ -9,6 +9,7 @@ public class PoblacionTest {
 		Instancia instancia = instanciaAleatoria(400);
 		Generador generador = new GeneradorRandom();
 		Poblacion poblacion = new Poblacion(instancia, generador);
+		poblacion.Registrar(new ObservadorPorConsola(poblacion));
 		poblacion.simular();
 	}
 

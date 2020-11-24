@@ -31,12 +31,22 @@ public class Poblacion {
 	
 	// Me dice por que iteracion voy
 		private int _maxIteraciones = 1000;
+		
+	//implemento observador
+	private ArrayList<Observador> _observadores;
 
 	public Poblacion(Instancia instancia, Generador generador) {
 		_instancia = instancia;
 		Individuo.setGenerador(new GeneradorRandom());
 		_random = generador;
+		_observadores = new ArrayList<Observador>();
 	}
+	
+	//REgristra observador
+	public void Registrar(Observador observador) {
+		_observadores.add(observador);
+	}
+	
 
 	public Individuo simular() {
 		generarIndividuos();
@@ -46,19 +56,20 @@ public class Poblacion {
 			recombinarAlgunos();
 			eliminarPeores();
 			agregarNuevos();
-			estadisticas();
+			notificarObservadores();
 			_iteracion++;
 		}
 		return mejorIndividuo();
 	}
 
-	private void estadisticas() {
-		System.out.print("It: " + _iteracion);
-		System.out.print(" - Mejor: " + mejorIndividuo().fitness());
-		System.out.print(" - Prom: " + fitnessPromedio());
-		System.out.print(" - Peor: " + peorIndividuo().fitness());
-		System.out.println();
+	private void notificarObservadores() {
+		for(Observador observador : _observadores) {
+			observador.notificar();
+		}
+		
 	}
+
+	
 
 	private void generarIndividuos() {
 		_individuos = new ArrayList<Individuo>(_tamanio);
@@ -113,15 +124,19 @@ public class Poblacion {
 		return Collections.max(_individuos);
 	}
 
-	private Individuo peorIndividuo() {
+	public Individuo peorIndividuo() {
 		return Collections.min(_individuos);
 	}
 
-	private double fitnessPromedio() {
+	public double fitnessPromedio() {
 		double suma = 0;
 		for (Individuo individuo : _individuos) {
 			suma += individuo.fitness();
 		}
 		return suma / _individuos.size();
+	}
+
+	public int getIteracion() {
+		return _iteracion;
 	}
 }
