@@ -1,7 +1,7 @@
 package mochila;
 
 
-public class Individuo {
+public class Individuo implements Comparable<Individuo> {
 
 	// Es el idividuo determinado por una
 	// secuencia de bits (cromosomas)
@@ -109,6 +109,16 @@ public class Individuo {
 
 	private void set(int i, boolean valor) {
 		_bits[i] = valor;
+	}
+
+	@Override
+	public int compareTo(Individuo otro) {
+		if(this.fitness() < otro.fitness())
+			return -1;
+		else if(this.fitness()==otro.fitness())
+			return 0;
+		else 
+			return 1;
 	}
 
 	
