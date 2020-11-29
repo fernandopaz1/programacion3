@@ -46,8 +46,21 @@ public class Persona {
 		personas.add(new Persona("Alberto", 27));
 		personas.add(new Persona("Jose", 31));
 		
+		//p -> p.mostrarNombre()
+		//es un consumer y sabemos que debe implementar el metodo acep
+		//acepta una persona y realiza una accion sobre la persona
+		//Lo que viene despues de la flecha es la implementacion del metodo 
+		//accept
 		aplicar(personas, p -> p.mostrarNombre());
 		aplicar(personas, p-> p.mostrarEdad());
+		
+		//tambien podria definir el la implementacion de dentro de la 
+		//misma expresion. No es necesario definir una funcion
+//		aplicar(personas, p -> {System.out.println(p._nombre);});
+//		aplicar(personas, p-> {System.out.println(p._nombre);});
+		
+		//solo puedo pasar funciones void por definicion de consumer
+		//el consumer no devuelve nada solo realiza una accion
 	}
 
 }
