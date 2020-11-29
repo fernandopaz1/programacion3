@@ -2,7 +2,9 @@ package semana11ExpresionesLambda;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+
 
 public class Persona {
 	public String _nombre;
@@ -49,7 +51,17 @@ public class Persona {
 	// valor
 	// boolean. Sirve para filtrar colecciones
 
-	private static void filtrar(ArrayList<Persona> personas, Predicate<Persona> filtro) {
+	private static ArrayList<Persona> filtrar(ArrayList<Persona> personas, Predicate<Persona> filtro) {
+		ArrayList<Persona> ret = new ArrayList<Persona>();
+		for (Persona p : personas) {
+			if (filtro.test(p)) {
+				ret.add(p);
+			}
+		}
+		return ret;
+	}
+	
+	private static void filtrar2(ArrayList<Persona> personas, Predicate<Persona> filtro) {
 		for (Persona p : personas) {
 			if (filtro.test(p)) {
 				p.mostrarNombre();
@@ -59,6 +71,19 @@ public class Persona {
 	// test recibe una persona y retorna boolean de acuerdo al
 	// codigo de la expresion lambda que le pase
 
+	
+	//-----------------------------------------------------------
+	//------------------------------------------------------------
+	//Funciones toman una instancia de una clase y retornan un resultado
+	//el metodo que tengo que escibir de esta interfaz el aply y se le aplica
+	//a
+	
+	public static void calcular (ArrayList<Persona> personas, Function<Persona, String> funcion) {
+		for(Persona p : personas) {
+			System.out.println(p._nombre + " = "+ funcion.apply(p));
+		}
+	}
+	
 	public static void main(String[] args) {
 		ArrayList<Persona> personas = new ArrayList<Persona>();
 		personas.add(new Persona("Patricia", 43));
@@ -88,18 +113,32 @@ public class Persona {
 		// el consumer no devuelve nada solo realiza una accion
 
 		System.out.println("Filtro todas las personas menores");
-		filtrar(personas, p -> p.esMenor());
-
+		System.out.println(filtrar(personas, p -> p.esMenor()));
+		
 		System.out.println("Filtro todas las personas mayores a 30");
-		filtrar(personas, p -> p._edad > 30);
+		System.out.println(filtrar(personas, p -> p._edad > 30));
 
 		System.out.println("Filtro todas las personas de 15");
-		filtrar(personas, p -> p._edad == 15);
+		System.out.println(filtrar(personas, p -> p._edad == 15));
 
+		
+		System.out.println("Aplico la interfaz Function");
+		calcular(personas, p -> aMayusculas(p._nombre));
+	}
+
+	private static String aMayusculas(String s) {
+		return s.toUpperCase();
 	}
 
 	private boolean esMenor() {
 		return _edad < 18;
 	}
+
+	@Override
+	public String toString() {
+		return "\n"+_nombre + ", edad=" + _edad;
+	}
+	
+	
 
 }
