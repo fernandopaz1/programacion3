@@ -1,5 +1,9 @@
 package semana11ExpresionesLambda;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -88,7 +92,7 @@ public class Persona {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		ArrayList<Persona> personas = new ArrayList<Persona>();
 		personas.add(new Persona("Patricia", 43));
 		personas.add(new Persona("Alberto", 27));
@@ -168,8 +172,13 @@ public class Persona {
 		LongStream longStream = LongStream.rangeClosed(1, 3);
 		
 		
+		//Podemos crear un stream con todas las filas de un archivo
 		
-		
+		//Esto de aca crea un stream con
+		/* Path path = Paths.get("archivos/example.csv");
+	     	Stream<String> streamOfStrings = Files.lines(path);
+		    streamOfStrings.forEach(s -> System.out.println(s));
+		*/
 	}
 
 	private static String aMayusculas(String s) {
