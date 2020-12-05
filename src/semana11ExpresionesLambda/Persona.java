@@ -1,9 +1,13 @@
 package semana11ExpresionesLambda;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 
 public class Persona {
@@ -124,6 +128,48 @@ public class Persona {
 		
 		System.out.println("Aplico la interfaz Function");
 		calcular(personas, p -> aMayusculas(p._nombre));
+
+		System.out.println("--------------------------");
+		System.out.println("Usando streams");		
+		System.out.println("--------------------------");
+		//Trabajando con streams
+		
+		//convertimos el array de personas a stream y le aplicamos un forEach
+		personas.stream().forEach(p -> System.out.println(p.getNombre()));
+
+		//los streams son una forma de representar una secuencia de objetos
+		
+		//Me da un acceso secuencia a los objetos que son obtenidos por demanda
+		//Los streams no guardan datos
+		//solo dan acceso a los datos
+		//la mayoria de las operaciones sobre strams retornan streams
+		//Estas operaciones se pueden concatenar
+		
+		//Creo un stream vacio sobre
+		Stream<String> streamEmpty = Stream.empty();
+		
+		//Creo uno a partir de una coleccion
+		ArrayList<String> collection = new ArrayList<String>();
+		Stream<String> streamOfCollection = collection.stream();
+		
+		//O a partir de un arreglo
+		String[] arreglo = new String[] {"a","b","c"};
+		Stream<String> streamOfArray = Arrays.stream(arreglo);
+		
+		//Este es una ejemplo de un stream con valores calculados
+		//Tenemos que limitar el stream para que no sea infinito
+		Stream<Integer> streamIterad = Stream.iterate(40, n -> n+2).limit(20);
+		
+		//esta seria l forma de imprimir todos los streams calculados
+		//streamIterad.forEach( n -> System.out.println(n));
+		
+		//lo mismo dando valores de extremos
+		IntStream intStream = IntStream.range(1, 3); // enteros entre 1 y 3 no incluido
+		LongStream longStream = LongStream.rangeClosed(1, 3);
+		
+		
+		
+		
 	}
 
 	private static String aMayusculas(String s) {
@@ -138,7 +184,9 @@ public class Persona {
 	public String toString() {
 		return "\n"+_nombre + ", edad=" + _edad;
 	}
-	
-	
+
+	public String getNombre() {
+		return _nombre;
+	}
 
 }
