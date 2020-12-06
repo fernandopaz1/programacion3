@@ -16,10 +16,12 @@ import java.util.stream.Stream;
 public class Persona {
 	public String _nombre;
 	public int _edad;
+	public int _peso;
 
-	public Persona(String nombre, int edad) {
+	public Persona(String nombre, int edad, int peso) {
 		_nombre = nombre;
 		_edad = edad;
+		_peso= peso;
 	}
 
 	// En java aparece algo que se llama interfaces funcionales
@@ -40,6 +42,13 @@ public class Persona {
 
 	public void mostrarEdad() {
 		System.out.println(this._edad);
+	}
+	
+	public int getEdad() {
+		return _edad;
+	}
+	public int getPeso() {
+		return _peso;
 	}
 
 	// el consumer seria un metodo y lo estaria pasando como parametro
@@ -92,11 +101,11 @@ public class Persona {
 
 	public static void main(String[] args) throws IOException {
 		ArrayList<Persona> personas = new ArrayList<Persona>();
-		personas.add(new Persona("Patricia", 43));
-		personas.add(new Persona("Alberto", 27));
-		personas.add(new Persona("Jose", 31));
-		personas.add(new Persona("Ana", 18));
-		personas.add(new Persona("Roberto", 15));
+		personas.add(new Persona("Patricia", 43,70));
+		personas.add(new Persona("Alberto", 27,80));
+		personas.add(new Persona("Jose", 31,100));
+		personas.add(new Persona("Ana", 18,80));
+		personas.add(new Persona("Roberto", 15,85));
 
 		// p -> p.mostrarNombre()
 		// es un consumer y sabemos que debe implementar el metodo acep
@@ -195,7 +204,20 @@ public class Persona {
 		 */
 		
 		//Operaciones terminales
-
+		// *forEach() Hace una accion para cada elemento del stream
+		// *count()  Cuenta la cantidad de elementos de un stream
+		
+		//Generando stream del 1 al 9 filtrando los no pares y contado
+		//luego de usar una terminal ya no puedo usar el stream
+		long cant = IntStream.range(1, 10).filter(x -> x%2 ==0).count();
+		System.out.println("Cantidad de numeros pares: "+ cant);
+		
+		//tambien esta sum, max, average
+		
+		//Para poder obtener resultados numericos a partir de colecciones no
+		//numericas lo que hacemos es mapear esos objetos a numeros
+		
+		
 	}
 
 	private static String aMayusculas(String s) {
