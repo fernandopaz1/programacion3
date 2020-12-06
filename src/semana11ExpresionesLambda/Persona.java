@@ -13,7 +13,6 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-
 public class Persona {
 	public String _nombre;
 	public int _edad;
@@ -68,7 +67,7 @@ public class Persona {
 		}
 		return ret;
 	}
-	
+
 	private static void filtrar2(ArrayList<Persona> personas, Predicate<Persona> filtro) {
 		for (Persona p : personas) {
 			if (filtro.test(p)) {
@@ -79,19 +78,18 @@ public class Persona {
 	// test recibe una persona y retorna boolean de acuerdo al
 	// codigo de la expresion lambda que le pase
 
-	
-	//-----------------------------------------------------------
-	//------------------------------------------------------------
-	//Funciones toman una instancia de una clase y retornan un resultado
-	//el metodo que tengo que escibir de esta interfaz el aply y se le aplica
-	//a
-	
-	public static void calcular (ArrayList<Persona> personas, Function<Persona, String> funcion) {
-		for(Persona p : personas) {
-			System.out.println(p._nombre + " = "+ funcion.apply(p));
+	// -----------------------------------------------------------
+	// ------------------------------------------------------------
+	// Funciones toman una instancia de una clase y retornan un resultado
+	// el metodo que tengo que escibir de esta interfaz el aply y se le aplica
+	// a
+
+	public static void calcular(ArrayList<Persona> personas, Function<Persona, String> funcion) {
+		for (Persona p : personas) {
+			System.out.println(p._nombre + " = " + funcion.apply(p));
 		}
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		ArrayList<Persona> personas = new ArrayList<Persona>();
 		personas.add(new Persona("Patricia", 43));
@@ -122,63 +120,82 @@ public class Persona {
 
 		System.out.println("Filtro todas las personas menores");
 		System.out.println(filtrar(personas, p -> p.esMenor()));
-		
+
 		System.out.println("Filtro todas las personas mayores a 30");
 		System.out.println(filtrar(personas, p -> p._edad > 30));
 
 		System.out.println("Filtro todas las personas de 15");
 		System.out.println(filtrar(personas, p -> p._edad == 15));
 
-		
 		System.out.println("Aplico la interfaz Function");
 		calcular(personas, p -> aMayusculas(p._nombre));
 
 		System.out.println("--------------------------");
-		System.out.println("Usando streams");		
+		System.out.println("Usando streams");
 		System.out.println("--------------------------");
-		//Trabajando con streams
-		
-		//convertimos el array de personas a stream y le aplicamos un forEach
+		// Trabajando con streams
+
+		// convertimos el array de personas a stream y le aplicamos un forEach
 		personas.stream().forEach(p -> System.out.println(p.getNombre()));
 
-		//los streams son una forma de representar una secuencia de objetos
-		
-		//Me da un acceso secuencia a los objetos que son obtenidos por demanda
-		//Los streams no guardan datos
-		//solo dan acceso a los datos
-		//la mayoria de las operaciones sobre strams retornan streams
-		//Estas operaciones se pueden concatenar
-		
-		//Creo un stream vacio sobre
+		// los streams son una forma de representar una secuencia de objetos
+
+		// Me da un acceso secuencia a los objetos que son obtenidos por demanda
+		// Los streams no guardan datos
+		// solo dan acceso a los datos
+		// la mayoria de las operaciones sobre strams retornan streams
+		// Estas operaciones se pueden concatenar
+
+		// Creo un stream vacio sobre
 		Stream<String> streamEmpty = Stream.empty();
-		
-		//Creo uno a partir de una coleccion
+
+		// Creo uno a partir de una coleccion
 		ArrayList<String> collection = new ArrayList<String>();
 		Stream<String> streamOfCollection = collection.stream();
-		
-		//O a partir de un arreglo
-		String[] arreglo = new String[] {"a","b","c"};
+
+		// O a partir de un arreglo
+		String[] arreglo = new String[] { "a", "b", "c" };
 		Stream<String> streamOfArray = Arrays.stream(arreglo);
+
+		// Este es una ejemplo de un stream con valores calculados
+		// Tenemos que limitar el stream para que no sea infinito
+		Stream<Integer> streamIterad = Stream.iterate(40, n -> n + 2).limit(20);
+
+		// esta seria l forma de imprimir todos los streams calculados
+		// streamIterad.forEach( n -> System.out.println(n));
+
+		// lo mismo dando valores de extremos
+		IntStream intStream = IntStream.range(1, 10); // enteros entre 1 y 3 no incluido
+
+		// skip(4) saltea 4 elementos
+		// limit(3) me limita el stream a 3 elementos
+		// map(e -> operacion) me mapea elementos del stream a otros
+		// misma cantidad segun la operacion que pongo adentro
+		//ejemplo map(e ->  e*2) me los mapea al doble
 		
-		//Este es una ejemplo de un stream con valores calculados
-		//Tenemos que limitar el stream para que no sea infinito
-		Stream<Integer> streamIterad = Stream.iterate(40, n -> n+2).limit(20);
+		//forEach  es una operacion terminal es decir no puedo seguir
+		//concatenando operaciones sobre streams
+		//Filter tambien es una operacion intermeda
+		//Find first es una operacion terminaltambie
+		System.out.println("Imprimiendo streams");
+		intStream.skip(4).limit(3).map(elem -> elem * 2).forEach(System.out::println);
 		
-		//esta seria l forma de imprimir todos los streams calculados
-		//streamIterad.forEach( n -> System.out.println(n));
+		//Puedo usar System.out::println en vez de e -> System.out.println(e);
+		// se hace para cada uno de los elementos del stream
 		
-		//lo mismo dando valores de extremos
-		IntStream intStream = IntStream.range(1, 3); // enteros entre 1 y 3 no incluido
+		
 		LongStream longStream = LongStream.rangeClosed(1, 3);
+
+		// Podemos crear un stream con todas las filas de un archivo
+
+		// Esto de aca crea un stream con
+		/*
+		 * Path path = Paths.get("archivos/example.csv"); Stream<String> streamOfStrings
+		 * = Files.lines(path); streamOfStrings.forEach(s -> System.out.println(s));
+		 */
 		
-		
-		//Podemos crear un stream con todas las filas de un archivo
-		
-		//Esto de aca crea un stream con
-		/* Path path = Paths.get("archivos/example.csv");
-	     	Stream<String> streamOfStrings = Files.lines(path);
-		    streamOfStrings.forEach(s -> System.out.println(s));
-		*/
+		//Operaciones terminales
+
 	}
 
 	private static String aMayusculas(String s) {
@@ -191,7 +208,7 @@ public class Persona {
 
 	@Override
 	public String toString() {
-		return "\n"+_nombre + ", edad=" + _edad;
+		return "\n" + _nombre + ", edad=" + _edad;
 	}
 
 	public String getNombre() {
