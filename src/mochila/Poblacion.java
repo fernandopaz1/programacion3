@@ -8,20 +8,45 @@ public class Poblacion {
 	// Los individuos de la poblacion
 	private ArrayList<Individuo> _individuos;
 
+	
+	//con pocos individuos la convergencia es lenta y hasta puede estancarse
+	
+	//Con muchos individuos la convergencia es mas rapida pero tarda mas en cada iteracion
+	
+	//Sin mutados le cuesta llegar a la convergencia
+	//La mutacion ayuda a la evolucion ya que a veces permite escapar
+	//del estancamiento
+	
+	//Si hay much mutacion el proceso es muy aleatorio
+	
+	
+	//sin recombinacion no pude avanzar mucho
+	//la solucion solo se crearia por mutaciones y los nuevos ingresados
+	//aleatoriamente, no hay forma de premiar los individuos exitosos
+	
+	//Si hago que muchos se recobinen tambien va a tardar 
+	
+	
+	//si no agregamos indiciduos aleatorios tenemos el riesgo de estancarnos
+	//muy rapido.
+	//Puede que la poblacion se corte en una poblacion de clones
+	//sean todos iguales y no haya forma de salir de ahi
+	//La unica chance es que salga por mutacion
+	
 	// Instancia asociada
 	private Instancia _instancia;
 
 	// parametros de la poblacion
-	private int _tamanio = 100;
+	private int _tamanio = 1000;
 
 	// cuantos se mutan en cada iteracion
-	private int _mutadosPorIteracion = 10;
+	private int _mutadosPorIteracion = 200;
 
 	// cuantos se mutan en cada iteracion
-	private int _recombinadosPorIteracion = 20;
+	private int _recombinadosPorIteracion = 200;
 
 	// es la cantidad de eliminados en cada iteracion
-	private int _eliminadoPorIteracion = 60;
+	private int _eliminadoPorIteracion = 600;
 
 	// Generador de numeros aleatorios
 	private Generador _random;
@@ -115,7 +140,7 @@ public class Poblacion {
 
 	private void agregarNuevos() {
 		// Si mi poblacion decrece agrego aleatorios
-		while (_individuos.size() < 100) {
+		while (_individuos.size() < _tamanio) {
 			_individuos.add(Individuo.aleatorio(_instancia));
 		}
 	}
